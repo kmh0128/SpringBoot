@@ -106,10 +106,56 @@ flush()
 지금까지 Member 테이블에 대한 데이터 변경 작업들이 디스크에 모두 기록
   
   
-  
+테스트 환경 설정
+======= 
+    ![별도의 테스트환경](https://user-images.githubusercontent.com/100178951/196035298-184c3348-1797-4d49-9c80-cc6783d20f95.jpg)
+    
+별도의 테스트 환경을 위해 resources 아래에 application-test.properties라는 별도의properties 작성
+    
+#Datasource 설정
+spring.datasource.driver-class-name=org.h2.Driver
+spring.datasource.url=jdbc:h2:mem:test
+spring.datasource.username=sa
+spring.datasource.password=
 
+#H2 데이터베이스 방언 설정
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect    
+
+그 후 AvatarRepository 마우스 우클릭 Go To -> Test 버튼 누르고 -> Create New Test 클릭
+    
+Junit5버전으로 생성
+    
+테스트 코드
+=======
+    
+            @SpringBootTest//1
+            @TestPropertySource(locations = "classpath:application-test.properties")//2
+            class AvatarRepositoryTest {
+
+                @Autowired//3
+                AvatarRepository avatarRepository;
+
+                @Test//4
+                @DisplayName("아바타 저장테스트")//5
+                public void createAvatarTest(){
+                    Avatar avatar = new Avatar();
+                    avatar.setAvatarName("테스트 아바타");
+                    avatar.setAvatarDetail("상세 설명");
+                    avatar.setRegTime(LocalDateTime.now());
+                    avatar.setUpdateTime(LocalDateTime.now());
+                    Avatar savedAvatar = avatarRepository.save(avatar);
+                    System.out.println(savedAvatar.toString());
+
+                }
+            }
   
-  
+    ![성공](https://user-images.githubusercontent.com/100178951/196035555-adff761d-2777-4490-ad68-45f86434642a.jpg)
+테스트 코드 작동
+
+    
+주석 1,2,3,4,5
+    
+   1.
   
 참고자료: https://frogand.tistory.com/m/22
 
