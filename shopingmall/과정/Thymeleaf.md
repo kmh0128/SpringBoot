@@ -147,7 +147,67 @@ itemDto
 
         }
 
-C
+thyemeleafExController
+===
+
+		import com.shop.dto.ItemDto;
+		import org.springframework.stereotype.Controller;
+		import org.springframework.ui.Model;
+		import org.springframework.web.bind.annotation.GetMapping;
+		import org.springframework.web.bind.annotation.RequestMapping;
+
+		import java.time.LocalDateTime;
+
+		@Controller
+		@RequestMapping(value = "/thymeleaf")
+		public class ThymeleafExController {
+
+    		//코드 생략
+
+    			@GetMapping(value = "/ex02")
+    			public String thymeleafExample02(Model model) {
+        			ItemDto itemDto = new ItemDto();
+        			itemDto.setItemDetail("상품 상세 설명");
+        			itemDto.setItemNm("테스트 상품1");
+        			itemDto.setPrice(10_000);
+        			itemDto.setRegTime(LocalDateTime.now());
+
+        			model.addAttribute("itemDto", itemDto);
+        			return "thymeleafEx/thymeleafEx02";
+    			}
+		}
+
+전달받은 itemDto 객체를 th:text를 이용하여 출력한다.
+
+
+		<!doctype html>
+		<html xmlns:th=""http://www.thymeleaf.org>
+		<head>
+    		<meta charset="UTF-8">
+    		<title>Title</title>
+		</head>
+		<body>
+    		<h1>상품 데이터 출력 예제</h1>
+    		<div>
+        		상품명 : <span th:text="${itemDto.itemNm}"></span>
+    		</div>
+    		<div>
+        		상품상세설명 : <span th:text="${itemDto.itemDetail}"></span>
+    		</div>
+    		<div>
+        		상품등록일 : <span th:text="${itemDto.regTime}"></span>
+    		</div>
+    		<div>
+        		상품가격 : <span th:text="${itemDto.price}"></span>
+    		</div>
+		</body>
+		</html>
+		
+		
+
+ShopApplication을 실행한 후에 아래 이미지와 같이 URL을 입력하면 입력한 데이터가 화면에 정상적으로 출력되는 것을 볼 수 있다.
+
+![출력예제4](https://user-images.githubusercontent.com/100178951/204135873-f7ab6c63-a95c-40ad-b6e5-ab13c0373f1b.jpg)
 
 
 참고자료 : https://velog.io/@gidskql6671/Spring-Devtools-restart%EB%A1%9C-%EC%9E%90%EB%8F%99-%EC%9E%AC%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0
