@@ -35,3 +35,77 @@ AuditorAwareImpl
 
 Auditing 기능을 사용하기 위해서 Config 파일을 생성하겠습니다.
 
+AuditConfig
+====
+
+    import org.springframework.context.annotation.Bean;
+    import org.springframework.context.annotation.Configuration;
+    import org.springframework.data.domain.AuditorAware;
+    import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+
+    @Configuration
+    @EnableJpaAuditing//1
+    public class AuditConfig {
+
+        @Bean
+        public AuditorAware<String> auditorProvider() {//2
+            return new AuditorAwareImpl();
+        }
+
+    }
+
+1 -> JPA의 Auditing 기능을 활성화합니다.
+
+2 -> 등록자와 수정자를 처리해주는 AuditorAware을 빈으로 등록합니다.
+
+이어서 보통 테이블에 등록일, 수정일, 등록자, 수정자를 모두 다 넣어 주지만 어떤 테이블은 등록자, 수정자를 넣지 않는 테이블도 있을수 있다.
+
+그런 테이블은 BaseTimeEntity만 상속받을 수 있도록 BaseTimeEntity 클래스를 생성합니다.
+
+BaseTimeEntity
+===
+
+    import lombok.Getter;
+    import lombok.Setter;
+    import org.springframework.data.annotation.CreatedDate;
+    import org.springframework.data.annotation.LastModifiedDate;
+    import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+    import javax.persistence.Column;
+    import javax.persistence.EntityListeners;
+    import javax.persistence.MappedSuperclass;
+    import java.time.LocalDateTime;
+
+    @EntityListeners(value = {AuditingEntityListener.class})//1
+    @MappedSuperclass//2
+    @Getter @Setter
+    public abstract class BaseTimeEntity {
+
+        @CreatedDate//3
+        @Column(updatable = false)
+        private LocalDateTime regTime;
+
+        @LastModifiedDate//4
+        private LocalDateTime updateTime;
+
+    }   
+
+1 Auditing을 적용하기 위해서 @EntityListeners 어노테이션을 추가합니다.
+
+2 공통 매핑 정보가 필요할 때 사용하는 어노테이션으로 부모 클래스를 상속 받는 자식 클래스에 매핑 정보만 제공 합니다.
+
+3 엔티티가 생성되어 저장될 때 시간을 자동으로 저장합니다
+
+4 엔티티 값을 변경할 때 시간을 자동으로 저장합니다.
+
+Member
+===
+
+    @Entity
+    @Table(name="member")
+    @Getter @Setter
+    @ToString
+    public class Member extends BaseEntity {
+    -코드생략-
+    }
+
