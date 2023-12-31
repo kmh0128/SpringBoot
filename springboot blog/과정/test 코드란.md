@@ -250,6 +250,16 @@ AssertJ는 JUnit과 함계 사용해 검증문의 가독성을 높여주는 라�
 |isGreaterThan(1)|1보다 큰값인지 검증|
 |isLessThan(1)|1 보다 작은 값인지 검증|
 
+테스트코드 작성
+===
+
+TestController.java 파일을 열고 
+
+클래스 이름위에 마우스 커서를 놓고 alt + enter 누르면 create test가 나타난다.
+
+![create test](https://github.com/kmh0128/SpringBoot/assets/100178951/3f47d147-bb91-48f6-94e4-655bac44ca43)
+
+ok를 클릭하면 TestControllerTest.java 파일이 test/java/패키지 아래에 생성된다.
 
 
 
