@@ -141,11 +141,114 @@ ex) 코드
 ===
 
 JUnitCycleTest.java 
+===
+
+    public class JUnitCycleTest {
+        @BeforeAll// 전체 테스트를 시작하기 전에 1회 실행하므로 메소드는 static을 선언해줘야 된다.
+        static void beforeAll() {
+            System.out.println("@BeforeAll");
+        }
+        @BeforeEach// 테스트 케이스를 실행하기 전마다 실행
+        public void beforeEach() {
+            System.out.println("@BeforeEach");
+        }
+
+        @Test
+        public void test1() {
+            System.out.println("test1");
+        }
+
+        @Test
+        public void test2() {
+            System.out.println("test2");
+        }
+
+        @Test
+        public void test3() {
+            System.out.println("test3");
+        }
+
+        @AfterAll // 전체 테스트를 마치고 종료하기 전에 1회 실행하므로 메서드는 static으로 선언된다.
+        static void afterAll(){
+            System.out.println("@AfterAll");
+        }
+
+        @AfterEach // 테스트 케이스를 종료하기 전마다 실행
+        public void afterEach(){
+            System.out.println("@AfterEach");
+        }
+    }
+
+한번만 실행되는 @BeforeAll, @AfterAll 말고 -> 이둘은 맨처음과 맨끝 클래스정리
+
+    @BeforeEach
+    메서드 레벨 설정
+
+    @Test             ->순서대로 테스트개수 만큼 반복된다.
+    테스트 실행 
+
+    @AfterEach
+    메서드 레벨 정리
+
+코드 결과
+===
+
+![테스트 예 결과](https://github.com/kmh0128/SpringBoot/assets/100178951/00cdc3ee-9415-44f2-a32a-f150e11ab539)
 
 
+애너테이션 의미
+===
+
+@BeforeAll -> 전체 테스트를 시작하기 전에 처음으로 한번만 실행한다.
+
+이 애너테이션은 전체 테스트 실행 주기에서 한 번만 호출되어야 하기 때문에 메서드를 static으로 선언
+
+예) 데이터베이스를 연결해야 하거나 테스트 환경을 초기화 할 때 사용합니다.
+
+@BeforeEach -> 테스트 케이스를 시작하기 전에 매번 실행한다.
+
+각 인스턴스에 대해서 메서드를 호출해야 하므로 메서드는 static이 아니어야 한다.
+
+예) 테스트 메서드에서 사용하는 객체를 초기화하거나 테스트에 필요한 값을 미리 넣을 때 사용할수 있다.
+
+@AfterAll
+
+-> 전체 테스트를 마치고 종료하기 전에 한 번만 실행합니다.
+
+예) 데이터베이스 연결을 종료할때나 공통적으로 사용하는 자원을 해제할 때 사용할 수 있다.
+
+이것 또한 전체 주기에서 한 번만 호출되어야하므로 메서드를 static으로 선언한다.
+
+@AfterEach
+
+각 테스트 케이스를 종료하기 전 매번 실행한다.
+
+예) 테스트 이후에 특정 데이터를 삭제해야 하는 경우 사용합니다.
+
+@BeforEach와 마찬가지로 메서드는 static이 나이어야 한다
 
 
+AssertJ 검증문
+===
 
+AssertJ는 JUnit과 함계 사용해 검증문의 가독성을 높여주는 라이브러리입니다.
+
+기대값과 실제 비교값을 명시하여서 비교대상을 명확하게 해준다.
+
+|메서드 이름|설명|
+|------|---|
+|isEqualTo(A)|A 값과 다른지 검증|
+|isNotEqualTo(A)|A 값과 다른지 검증|
+|contains(A)|A 값을 포함하는지 검증|
+|doesNotContains(A)|A 값을 포함하지 않는지 검증|
+|startWith(A)|접두사가 A인지 확인|
+|endsWith(A)|접미사가 A인지 확인|
+|isEmpty()|비어 있는 값인지 검증|
+|isNotEmpty()|비어 있지 않은 값인지 검증|
+|isPositive()|양수인지 검증|
+|isNegative()|음수인지 검증|
+|isGreaterThan(1)|1보다 큰값인지 검증|
+|isLessThan(1)|1 보다 작은 값인지 검증|
 
 
 
