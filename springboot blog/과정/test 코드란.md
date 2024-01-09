@@ -261,7 +261,31 @@ TestController.java 파일을 열고
 
 ok를 클릭하면 TestControllerTest.java 파일이 test/java/패키지 아래에 생성된다.
 
+코드 예제)
+====
 
+    @SpringBootTest//테스트용 애플리케이션 컨텍스트 생성
+    @AutoConfigureMockMvc// MockMvc 생성 및 자동 구성
+    class TestControllerTest {
+
+        @Autowired// 빈에서 객체등록
+        protected MockMvc mockMvc;
+
+        @Autowired
+        private WebApplicationContext context;
+
+        @Autowired
+        private MemberRepository memberRepository;
+
+        @BeforeEach// 테스트 실행전 메서드
+        public void mockMvcSetUp() {
+            this.mockMvc = MockMvcBuilders.webAppContextSetup(context).build();//test를 위한 객체생성
+        }
+
+        @AfterEach//테스트 실행 후 실행하는 메서드
+        public void cleanUp() {
+            memberRepository.deleteAll();//deleteAll() 해당 메서드는 Repository 에 등록되어 있는 메서드로 해당 레포지토리에서 관리 되는 모든 entity 를 삭제합니다.
+        }
 
 
 
