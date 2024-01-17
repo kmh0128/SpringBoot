@@ -288,6 +288,35 @@ ok를 클릭하면 TestControllerTest.java 파일이 test/java/패키지 아래�
         }
 
 
+사용된 애너테이션
+===
+
+@SpringBootTest
+
+이 애너테이션은 메인 애플리케이션 클래스에 추가하는 애너테이션인 @SpringBootApplication이 있는 클래스를 찾고 그 클래스에 포함되어 있는
+
+빈을 찾은 다음 테스트용 애플리케이션 컨텍스트라는것을 만든다.
+
+@AutoConfigureMockMvc
+
+@AutoConfigureMockMvc는 MockMvc를 생성하고 자동으로 구성하는 애너테이션입니다.
+
+MockMvc는 애플리케이션을 서버에 배포하지 않고도 테스트용 MVC 환경을 만들어 요청 및 전송, 응답 기능을 제공하는 유틸리티 클래스입니다.
+
+즉 컨트롤러를 테스트할 때 사용되는 클래스입니다.
+
+@BeforeEach
+
+테스트를 실행하기 전에 실행하는 메서드에 적용하는 애너테이션
+
+예문에서는 MockMvcSetUp() 메서드를 실행해 MockMvc를 설정해줍니다.
+
+@AfterEach
+
+테스트를 실행한 이후에 실행하는 메서드에 적용하는 애너테이션입니다.
+
+여기서는 cleanUp() 메서드를 실행해 member 테이블에 있는 데이터들을 모두 삭제해줍니다.
+
 
 
 
