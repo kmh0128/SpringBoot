@@ -1,4 +1,4 @@
-데이터베이스, ORM
+해데이터베이스, ORM
 ====
 
 참고도서 및 자료
@@ -11,6 +11,8 @@ https://velog.io/@pyounani/%EC%8A%A4%ED%94%84%EB%A7%81-6.-DB-%EC%97%B0%EB%8F%99O
 https://velog.io/@coastby/JPA-ORM-JPA
 
 https://suhwan.dev/2019/02/24/jpa-vs-hibernate-vs-spring-data-jpa/
+
+https://velog.io/@conatuseus/2019-09-06-0009-%EC%9E%91%EC%84%B1%EB%90%A8-cfk06vdfm9
 
 데이터베이스,DB란
 ===
@@ -219,6 +221,17 @@ ex) 여러 회원 2명이 동시에 회원 가입을 하려는 경우 엔티티 
 
 이는 회원2도 마찬가지입니다
 
+예시그림)
+---
+
+![post-images_conatuseus_38dac7b0-cff5-11e9-825d-1977adc755dc_image](https://github.com/kmh0128/SpringBoot/assets/100178951/e58c79ab-2fed-4407-9815-da458af33059)
+
+스프링 부트에서는 직접 엔티티 매니저 팩토리를 만들어서 관리하지는 않는다.
+
+엔티티 매니저 팩토리를 하나만 생성해서 관리하고 있습니다.
+
+@Persistence, @Autowired 이 두개의 애너테이션을 사용해서 엔티팀매니저를 사용하고 있다.
+
 
 
 엔티티
@@ -228,6 +241,7 @@ ex) 여러 회원 2명이 동시에 회원 가입을 하려는 경우 엔티티 
 일반적으로 일반적인 자바 객체와 같지만, 데이터베이스와 연결되는 객체라는 단 하나의 특징이 있어서 구분지어서 부르게됩니다.
 
 객체이긴 하지만 데이터베이스에 영향을 미치는 쿼리를 실행하는 객체이다.
+
 
 
 
