@@ -313,12 +313,83 @@ ex) 여러 회원 2명이 동시에 회원 가입을 하려는 경우 엔티티 
 
 필요할때 쿼리를 날려 데이터를 로딩하는것
 
+위 특징의 공통점은 데이터베이스의 접근을 최소화해 성능을 높일 수 있다는 것이다.
+
+캐시를 하거나 자주 쓰지 않게 하거나 변화를 자동 감지해서 미리 준비하거나 하는 등의 방법을 통해서 말이다.
+
+엔티티의 상태
+---
+
+엔티티의 4가지 상태
+---
+
+영속성 컨텍스트가 관리하고 있지 않는 분리(deteached), 영속성 컨텍스트가 관리하는 관리(managed)상태, 영속성 컨텍스트와 전혀 관계가 없는 비영속(transient)상태,
+
+삭제된(removed) 상태로 4가지 상태이다.
+
+이런 4가지 상태에서는 특정 메서드를 호출해 변경할 수 있다.
+
+필요에 따라 에네티티의 상태를 조절해 데이터를 올바르게 유지하고 관리할수 있다.
+
+간단한 예)
+---
 
 
+        public class EntityManagerTest{
 
+          @Autowired// 객체를 생성
+          EntityManger em;
 
+          public void example() {
 
+            Member member = new Member(1L, "홍길동");//엔티티를 처음 만들었을 경우 엔티티 매니저가 엔티티를 관리하지 않는 상태(비영속 상태)
 
+            em.persist(member);//엔티티가 관리되는 상태 Member 객체가 영속성 컨텍스트에서 상태가 관리
+
+            em.detach(member);//엔티티를 영속성 컨텍스트에서 관리하고 싶지 않은경우는 detach()를 사용해서 분리상태로 만들어준다.
+
+            em.remove(member);//객체가 필요없는경우는 remove() 메서드를 사용해서 엔티티를 영속성 컨텍스트와 데이터베이스에서 삭제
+  
+          }
+  
+        }
+
+스프링데이터와 스프링 데이터 JPA
+===
+
+스프링 데이터 JPA
+---
+
+스프링 데이터 JPA는 스프링 데이터의 공통적인 기능에서 JPA의 유용한 기술이 추가된 기술
+
+스프링 데이터의 인터페이스인 PagingAndSortingRepository를 상속받아서 JpaRepository 인터페이스를 만들었으며,
+
+JPA를 더 편리하게 사용하는 메서드를 제공한다
+
+메서드 호출로 엔티티 상태 변경 예시
+---
+
+        @PersistenceContext
+        EntityManager em;
+
+        public void join() {
+        //기존 엔티티상태를 변경하는 방법(메서드를 호출해서 상태변경)
+          Member member = new Member(1L, "홍길동");
+          em.persist(member);
+        }
+
+스프링 데이터 JPA를 사용시 리포지터리 역할을 하는 인터페이스를 만들어 데이터베이스의 테이블 조회, 수정, 생성, 삭제같은 작업을 간단히 할 수 있다.
+
+기본 CRUD 메서드를 사용하기 위한 JpaRepository 상속 예시
+---
+
+        public interface MemberRepository extends JpaRepository<Member, Long>{
+        }
+
+JpaRepository 인터페이스를 위의 인터페이스에 상속받고, 제네릭에는 관리할 <엔티티 이름, 엔티티 기본키 타입>을 입력하면 기본CRUD 메서드를 사용할 수 있다.
+
+스프링 데이터 JPA에서 제공되는 메서드
+===
 
 
 
