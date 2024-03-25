@@ -388,8 +388,77 @@ JPA를 더 편리하게 사용하는 메서드를 제공한다
 
 JpaRepository 인터페이스를 위의 인터페이스에 상속받고, 제네릭에는 관리할 <엔티티 이름, 엔티티 기본키 타입>을 입력하면 기본CRUD 메서드를 사용할 수 있다.
 
-스프링 데이터 JPA에서 제공되는 메서드
+
+스프링 데이터 JPA에서 제공하는 메서드 사용
 ===
+
+MemberService.java
+---
+
+        @Service
+        public class MemberService {
+
+            @Autowired
+            MemberRepository memberRepository;
+
+            public void test() {
+                //1 생성
+                memberRepository.save(new Member(1L,"A"));
+
+                //2 조회
+                Optional<Member> member = memberRepository.findById(1L);//단건조회
+                List<Member> allMembers = memberRepository.findAll();//전체 조회
+
+                //3삭제 (Delete)
+                memberRepository.deleteAllById(1L);
+            }
+        }
+
+1 save() 메서드를 호출해 데이터 객체를 저장할 수 있다.
+
+전달 인수로 엔티티 Member를 넘기면 반환값으로 저장한 엔티티를 반환받을 수 있습니다.
+
+2 findById() 메서드에 id를 지정해 엔티티를 하나 조회할 수 있다.
+
+findByAll() 메서드는 전체 엔티티를 조회한다.
+
+3 deleteById() 메서드에 id를 지정하면 엔티티를 삭제할수 있다.
+
+예제코드
+----
+
+Member.java
+----
+
+        @NoArgsConstructor(access = AccessLevel.PROTECTED)// 2 기본 생성자
+        @AllArgsConstructor
+        @Getter
+        @Entity//1 엔티티로 지정
+        public class Member {
+
+            @Id// 3 Id 필드를 기본키로 지정
+            @GeneratedValue(strategy = GenerationType.IDENTITY)// 4 기본키를 자동으로 1씩 증가
+            @Column(name = "id", updatable = false)
+            private Long id;// DB 테이블과 id 컬럼과의 매칭
+
+            @Column(name = "name", nullable = false)// 5 name이라는 not null 컬럼과 매핑
+            private String name; // DB테이블과 name 컬럼과의 매칭
+
+        }
+
+1 @Entity 애너테이션은 Member 객체를 JPA가 관리하는 엔티티로 지정합니다.
+
+Member 클래스와 실제 데이터베이스의 테이블을 매핑시킨다.
+
+@Entity의 속성 중에 name을 사용하면 name의 값을 가진 테이블 이름과 매핑되고, 
+
+테이블 이름을 지정하지 않으면 클래스 이름과 같은 이름의 테이블과 매핑됩니다.
+
+예시처럼 테이블 이름을 지정하지 않으면 클래스 이름과 같은 데이터베이스의 테이블인 member 테이블과 매핑됩니다.
+
+@Entity 애너테이션에서 테이블을 지정하고 싶다면 다음과 같이 name 파라미터에 값을 지정해주세요.
+
+
 
 
 
