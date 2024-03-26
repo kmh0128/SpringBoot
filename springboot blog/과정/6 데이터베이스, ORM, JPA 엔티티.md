@@ -458,7 +458,60 @@ Member 클래스와 실제 데이터베이스의 테이블을 매핑시킨다.
 
 @Entity 애너테이션에서 테이블을 지정하고 싶다면 다음과 같이 name 파라미터에 값을 지정해주세요.
 
+name 파라미터로 Atricle 클래스와 member_list 테이블 매핑하기 예
+===
 
+        @Entity( name = "member_list") // 'member_list'라는 이름을 가진 테이블과 매핑
+        public class Articel {
+        ...생략....
+        }
+
+2 protected 기본 생성자입니다. 엔티티는 반드시 기본 생성자가 있어야 하고, 접근 제어자는 public 또는 protected 여야합니다.
+
+public보다는 protected가 더 안전하므로 접근 제어자가 protected인 기본 생성자를 생성합니다.
+
+3 @Id는 Long 타입의 id 필드를 테이블의 기본키로 지정합니다.
+
+4 @GeneratedValue는 기본키의 생성 방식을 결정합니다.
+
+여기서는 자동으로 기본키가 증가되도록 지정했습니다.
+
+자동키 생성 설정 방식
+===
+
+        AUTO 선택한 데이터베이스 방언(dialect)에 따라 방식을 자동으로 선택(기본값)
+
+        IDENTITY 기본키 생성을 데이터베이스에 위임(=AUTO_INCREMENT)
+
+        SEQUENCE 데이터베이스 시퀸스를 사용해서 기본키를 할당하는 방법 -> 오라클에서 주로 이용된다
+
+        TABLE 키 생성 테이블 사용
+
+@Column
+====
+5 @Column 애너테이션은 데이터베이스의 컬럼과 필드를 매핑시켜준다.
+
+속성
+---
+
+        name 필드와 매핑할 컬럼 이름. 설정하지 않으면 필드 이름으로 지정해줍니다.
+
+        nullable 커럼의 null 허용 여부. 설정하지 않으면 true(nullable)
+
+        unique 컬럼의 유일한 값(unique)의 여부 설정하지 않으면 false(non unique)
+
+        columnDefinition 컬럼 정보 설정. defalult 값을 줄 수있다.
+
+MemberReposiotry
+===
+
+        @Repository
+        public interface MemberRepository extends JpaRepository<Member, Long> {//엔티티 Member와 기본키 타입 Long을 인수로 넣어준다
+        }
+
+리포지토리는 엔티티에 있는 데이터들을 조회하거나 저장,변경,삭제를 할 때 사용하는 인터페이스로, 스프링 데이터JPA에서 제공하는 인터페이스인
+
+JpaRepository 클래스를 상속받아서 구현할수 있다
 
 
 
