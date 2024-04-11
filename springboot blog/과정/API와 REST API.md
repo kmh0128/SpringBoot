@@ -79,5 +79,34 @@ POST,GET,PUT,DELETE입니다.
 
 각각 create, read, update, delete 하는 CRUD를 담당합니다.
 
+만들다,읽기,업데이트,삭제의 역할입니다.
+
+예시로 같은 URL이라도 역할이 다른것을 볼 수 있다.
+
+예
+---
+
+GET/articles/1 
+-
+
+id가 1인 블로그 글을 조회하는 API
+
+POST/articles
+-
+
+글을 추가하는 API
+
+PUT/articles
+-
+
+글을 수정하는 API
+
+DELETE/articles/1
+-
+
+글을 삭제하는 API
+
+슬래시는 계층 관계를 나태내거나, 밑줄 대신 하이픈을 사용,자원의 종류가 컬렉션인지 도큐먼트인지이에 따라 단수 복수를 나누거나하는 규칙이 있다.
+
 
 
