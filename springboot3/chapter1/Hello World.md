@@ -25,3 +25,9 @@ Html 클릭 파일명을 hello.html작성
 
 Started FirstprojectApplicaiton 이 나오면 정상적으로 가동중입니다.
 
+
+참고자료:
+----
+저자 홍팍님
+
+책 제목:스프링부트3 자바 백엔드 개발 입문
