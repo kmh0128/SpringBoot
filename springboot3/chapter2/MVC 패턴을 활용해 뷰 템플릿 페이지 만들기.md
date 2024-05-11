@@ -94,3 +94,56 @@ niceToMeetYou() 메서드로 greetings.mustache 페이지를 반환하려면 파
 
 return "greetings";로 적어 주면 서버가 알아서 templates 디렉터리에서 greetings.mustache 파일을 찾아 웹 브라우저로 전송합니다.
 
+
+웹 브라우저 접속
+----
+
+서버를 실행시키고 접속한다.
+
+![접속 실패](https://github.com/kmh0128/SpringBoot/assets/100178951/cb79e761-78ac-4f62-b898-c99b5ccc222d)
+
+404 Not Found 에러입니다.
+
+더 처리해 줘야할게 있다는 뜻입니다.
+
+다시 FirstController
+---
+
+        import org.springframework.stereotype.Controller;
+        import org.springframework.web.bind.annotation.GetMapping; //URL 연결 요청(@GetMapping)으로 자동으로 임포트
+
+        @Controller//컨트롤러 선언
+        public class FirstController {
+
+            @GetMapping("/hi")//1,2 -> url 요청접수
+            public String niceToMeetyou() {
+                model.addAttribute("username", "ㅁㅎ");
+                return "greetings";//메서드 작성, greetings.mustache 파일 반환
+            }
+        }
+
+위 코드는 웹 브라우저 localhost:8080/hi로 접속시 greeting.mustache 파일을 찾아 반환하라는 코드입니다.
+
+컨트롤러를 만들 때 컨트롤러를 선언하고, 반환값으로 보여 줄 페이지의 이름만 따 서 적은 다음(return "greetings";)
+
+URL 요청을 접수해야(@GetMapping("/hi")) 제대로 나타나게 됩니다.
+
+
+다시 웹페이지
+---
+
+![오류2](https://github.com/kmh0128/SpringBoot/assets/100178951/98c58a6d-9556-4e4a-8f9f-a688d70d29a7)
+
+한글 깨짐현상이 발생했습니다.
+
+해결방법은 src > main > resources > application.properties 파일을 열고 코드를 추가합니다.
+
+        server.servlet.encoding.force=true
+
+ HTTP 요청과 응답의 인코딩을 내가 지정한 charset으로 설정해줘서 한글로 바꿔주게됩니다.
+
+
+ 참고자료
+ ---
+
+ https://velog.io/@codingpotato/Spring-Boot-2.7-Mustache-%EC%82%AC%EC%9A%A9-%EC%8B%9C-%ED%95%9C%EA%B8%80%EC%9D%B4-%EA%B9%A8%EC%A7%80%EB%8A%94-%EB%AC%B8%EC%A0%9C-%ED%95%B4%EA%B2%B0%EB%B2%95
