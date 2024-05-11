@@ -48,9 +48,49 @@ doc을 입력해주고 tab버튼을 눌러주면,
 
 해당화면처럼 바뀝니다.
 
+2 컨트롤러 만들고 실행하기
+====
+
+2-1 패키지 만들기 
+----
+
+com.example.firstproject에서 마우스 오른쪽 버튼 누르고 메뉴 new -> package 를 선택합니다.
+
+패키지명은 기본으로 입력된 패키지명 뒤에 controller를 추가해 com.example.firstproject.controller로 설정
+
+![컨트롤러 패키지](https://github.com/kmh0128/SpringBoot/assets/100178951/5d211c96-8403-4e36-b867-8b87c5374c3b)
+
+controller 패키지에 자바 클래스를 생성
+
+클래스 명은 FirstController로 설정합니다.
+
+2-2 FirstController
+----
+
+    package com.example.firstproject.controller;
+
+    import org.springframework.stereotype.Controller;
 
 
+    @Controller//컨트롤러 선언
+    public class FirstController {
+        
+        public String niceToMeetyou() {          
+            return "greetings";//메서드 작성, greetings.mustache 파일 반환 
+        }
+    }
 
 
+어노테이션(annotation)이란 소스 코드에 추가해 사용하는 메타 데이터의 일종입니다.
 
+메타 데이터는 프로그램에서 처리해야 할 데이터가 아니라 컴파일 및 실행 과정에서 코드를 어떻게 처리해야 할지 알려 주는 추가정보입니다.
+
+자바에서 어노테이션은 @을 붙여서 사용합니다.
+
+return "greetings";
+---
+
+niceToMeetYou() 메서드로 greetings.mustache 페이지를 반환하려면 파일이름인 greetings만 반환값으로 적어 주면된다.
+
+return "greetings";로 적어 주면 서버가 알아서 templates 디렉터리에서 greetings.mustache 파일을 찾아 웹 브라우저로 전송합니다.
 
