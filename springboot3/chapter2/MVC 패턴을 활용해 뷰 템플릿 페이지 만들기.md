@@ -146,4 +146,8 @@ URL 요청을 접수해야(@GetMapping("/hi")) 제대로 나타나게 됩니다.
  참고자료
  ---
 
+저자 홍팍님
+
+책 제목:스프링부트3 자바 백엔드 개발 입문
+
  https://velog.io/@codingpotato/Spring-Boot-2.7-Mustache-%EC%82%AC%EC%9A%A9-%EC%8B%9C-%ED%95%9C%EA%B8%80%EC%9D%B4-%EA%B9%A8%EC%A7%80%EB%8A%94-%EB%AC%B8%EC%A0%9C-%ED%95%B4%EA%B2%B0%EB%B2%95
