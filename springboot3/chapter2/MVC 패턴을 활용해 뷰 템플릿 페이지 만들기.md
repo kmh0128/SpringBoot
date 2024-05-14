@@ -142,6 +142,85 @@ URL 요청을 접수해야(@GetMapping("/hi")) 제대로 나타나게 됩니다.
 
  HTTP 요청과 응답의 인코딩을 내가 지정한 charset으로 설정해줘서 한글로 바꿔주게됩니다.
 
+모델추가하기
+====
+
+greeting.mustache
+---
+        -생략-
+        </head>
+        <body>
+            <h1>{{username}}님, 반갑습니다!</h1>
+        </body>
+        </html>
+
+{{username}}님 이라고 이름 부분을 수정합니다.
+
+변수명을써서 변쑤값에 따라 결과가 그때마다 다르게 출력할려고 합니다.
+
+이전과 달리 00님 반갑습니다!로 출력하게 되어 템플릿화 합니다.
+
+![username 서버 문제](https://github.com/kmh0128/SpringBoot/assets/100178951/30348b29-b2b4-4c85-9a96-4cefd0c7717e)
+
+localhost:8080/hi에 접속하면 서버 내부에서 에러가 발생합니다.
+
+Internal Server Error,라고 뜹니다.
+
+username이라는 변수를 찾을수가 없어서 입니다.
+
+이 에러를 해결하기 위해 모델을 사용하겠습니다.
+
+FirstController
+----
+
+        import org.springframework.stereotype.Controller;
+        import org.springframework.ui.Model;//Model 클래스 임포트
+        import org.springframework.web.bind.annotation.GetMapping;
+
+
+
+
+        @Controller//컨트롤러 선언
+        public class FirstController {
+
+            @GetMapping("/hi")//1,2 -> url 요청접수
+            public String niceToMeetyou(Model model) {//model 객체 받아오기
+                model.addAttribute("username", "ㄱㅁㅎ");
+                return "greetings";//메서드 작성, greetings.mustache 파일 반환
+            }
+        }
+
+모델은 컨트롤러의 메서드에서 매겨변수로 받아옵니다.
+
+niceToMeetYou() 메서드에 Model 타입의 model 매개변수를 추가합니다.
+
+Model 클래스 패키지 임포트시
+---
+
+변수를 등록할수 잇습니다.
+
+모델에서 변수를 등록할때는 addAttribute() 메서드를 사용합니다.
+
+예)
+-
+model.addAttribute("변수명", 변수값)//변수값을 "변수명"이라는 이름으로 추가된다.
+
+그러니 위에 코드처럼 model.addAttribute("username", "ㄱㅁㅎ"); 코드를 추가합니다.
+
+서버내부에서 username이라는 변수를 찾을 수 없어 에러가 발생했으므로 "username"이라는 이름을 등록하고 변수값을 넣어줍니다.
+
+설정반영 후 서버실행후 다시 주소로 가봅니다.
+
+![22222](https://github.com/kmh0128/SpringBoot/assets/100178951/fe7a9b19-96e3-4efc-afd1-9785618f9dbf)
+
+서버 정지 변수값을 수정후 다시 실행후 변수값이 바뀌어 출력된다.
+
+![33333](https://github.com/kmh0128/SpringBoot/assets/100178951/e7047e60-fac7-4410-8107-66e576bfe87a)
+
+
+
+
+
 
  참고자료
  ---
