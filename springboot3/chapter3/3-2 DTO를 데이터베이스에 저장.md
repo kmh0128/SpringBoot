@@ -17,4 +17,87 @@ DTO를 데이터베이스에 저장하기
 
 DB도 모든 데이터가 행과 열로 구성된 테이블(table)에 저장해 관리한다.
 
+테이블 예 사진
+---
 
+![릴레이션_구조 (1)](https://github.com/kmh0128/SpringBoot/assets/100178951/139a630b-0c80-4e11-8328-80ca36d9b589)
+
+
+h2 데이터베이스의 사용과 JPA
+---
+
+처음에 프로젝트를 만들때 의존성 주입을 해놓은 db
+
+DB는 SQL언어를 사용하지만 JPA를 사용하면 자바로도 명령을 내릴수가 있다.
+
+JPA(Java Persistence API)란 자바 언어로 DB에 명령을 내리는 도구로, 데이터를 객체 지향적으로 관리할 수 있게 해 줍니다.
+
+JPA의 핵심 도구로는 엔티티(Entity)와 리파지토리(repository)가 있습니다.
+
+엔티티
+--
+
+자바 객체를 DB가 이해할 수 있게 만든 것으로, 이를 기반으로 테이블이 만들어집니다.
+
+리파지토리
+--
+
+엔티티가 DB 속 테이블에 저장 및 관리될 수 있게 하는 인터페이스입니다.
+
+DTO를 엔티티로 변환하기
+===
+
+DTO를 엔티티로 변환한다.
+
+ArticleController
+===
+
+    public class ArticleController {
+
+        //중략
+
+        @PostMapping("/articles/create")//URL 요청접수
+        public String createArticle(ArticleForm form) {//폼 데이터를 DTO로 받기
+            System.out.println(form.toString());//DTO에 폼 데이터가 잘 담겼는지 확인
+            //1.DTO를 엔티티로 변환
+            Article article = form.toEntity();
+            System.out.println(article.toString());//DTO가 엔티티로 잘 변환되는지 확인 출력
+            //2. 리파지토리로 엔티티를 DB에 저장
+            return "";
+
+
+        }
+    }
+
+DTO를 변환시키는 코드에서 Article과 toEntity()에 빨간색 오류가 표시가 되는데 articel 클래스와 toEntity()
+
+메서드를 만들지 않았기때문입니다.
+
+Article 클래스
+===
+
+![엔티티 패키지를 생성한후 article 클래스 만들기](https://github.com/kmh0128/SpringBoot/assets/100178951/03c64674-ff40-4c75-b14c-b6947684ff31)
+
+빨간색 오류가난 Article 클래스에 마우스를 올리고 조금 기다리면 Article 클래스를 만들 수 있는 링크가 뜹니다.
+
+Create class 'Article'을 클릭후 or Alt + Enter 클릭후 목록에서 Create class 'Article' 기다립니다.
+
+![엔티티 수정](https://github.com/kmh0128/SpringBoot/assets/100178951/7c74daf3-3bd7-4147-b8a0-008d1cea1223)
+
+Destination package에서 controller 부분을 entity로 수정하고 ok클릭
+
+![클래스 생성확인](https://github.com/kmh0128/SpringBoot/assets/100178951/554800b5-6f35-4a70-a431-74de14027ef4)
+
+entity 패키지까지 생성되고 내부에 Article 클래스가 만들어진 것을 확인할 수 있습니다.
+
+
+
+
+
+
+
+
+참고자료
+---
+
+http://wiki.hash.kr/index.php/%ED%85%8C%EC%9D%B4%EB%B8%94_(%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4)
