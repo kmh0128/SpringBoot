@@ -63,5 +63,10 @@ uniqueContraints	   DDL 생성시 유니크 제약조건 생성
 @Id
 ===
 
+해당 필드가 엔티티의 식별자(primary key)임을 나타내는 어노테이션입니다.
+
+엔티티의 식별자 필드를 지정할 때 사용합니다.
 
 참고자료:https://cjw-awdsd.tistory.com/46
+
+https://g-study.tistory.com/200
