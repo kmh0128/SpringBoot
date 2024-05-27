@@ -90,9 +90,70 @@ Destination package에서 controller 부분을 entity로 수정하고 ok클릭
 
 entity 패키지까지 생성되고 내부에 Article 클래스가 만들어진 것을 확인할 수 있습니다.
 
+@Entity
+---
 
+JPA에서 제공하는 어노테이션으로, 이 어노테이션이 붙은 클래스를 기반으로 DB에 테이블이 생성된다.
 
+테이블 이름은 클래스 이름과 동일하게 생성된다.
 
+@Column
+---
+
+DTO 코드를 작성할 때와 같이 title, content 필드를 선언합니다.
+
+두 필드가 DB 테이블 각 열(column)과 연결되게 해주는 어노테이션입니다.
+
+@ID
+--
+
+엔티티의 대표값을 지정해주는 어노테이션
+
+@GeneratedValue
+--
+
+자동 생성 기능(숫자가 자동으로 매겨짐)
+
+entity/Article
+===
+
+        public class Article {
+            @Id//엔티티의 대표값 지정
+            @GeneratedValue//자동 생성 기능 추가(숫자가 자동으로 매겨진다)
+            private Long id;
+
+            @Column
+            private String title;
+
+            @Column
+            private String content;
+
+            public Article(Long id, String title, String content) {//Article 메서드 추가
+                this.id = id;
+                this.title = title;
+                this.content = content;
+            }
+
+            @Override
+            public String toString() {//toString 메서드 추가
+                return "Article{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                '}';
+            }
+        }
+
+content 필드 아래 여백의 공간에 마우스 오른쪽 Genrate -> Constructor를 선택 Ctrl을 누른 채 id:Long,title:String, content:String을 모두 선택한후 ok를 클릭
+
+이어서 toSting()메서드도 추가합니다. 생성자 아래에서 마우스 오른쪽 버튼을 누르고 이어서 Generate-> toString()을 선택 위와 같은 항목을 선택하고 ok를 눌러줍니다.
+
+Article에 있던 오류가 사라집니다
+
+Generate 예시
+---
+
+![generate](https://github.com/kmh0128/SpringBoot/assets/100178951/ed50f96d-4233-433f-a97a-331ff5463934)
 
 
 
