@@ -155,6 +155,42 @@ Generate 예시
 
 ![generate](https://github.com/kmh0128/SpringBoot/assets/100178951/ed50f96d-4233-433f-a97a-331ff5463934)
 
+위에 있던 오류가 사라져서 엔티티 타입이 인식된다는 뜻입니다.
+
+entity 패키지의 Article 클래스가 임포트된 것도 확인할 수 있습니다.
+
+controller/ArticleController.java
+---
+
+        import com.example.firstproject.entity.Article;
+        //중략
+        //DTO를 엔티티로 변환
+        Article article = form.toEntity();
+toEntity() 메서도 추가하기
+---
+
+toEntity() 메서드는 DTO인 form 객체를 엔티티 객체로 변환하는 역할을 합니다.
+
+ArticleController.java -> toEntity()에 마우스를 올리고 잠시 기다리면 해당 메서드를 만들어주는 링크가 뜹니다.
+
+Create method 'toEntity' in 'ArticleForm' 클릭하면
+
+ArticleForm
+---
+
+        public Article toEntity() {        
+        }
+
+해당 코드가 완성
+
+이어서 DTO 개체를 엔티티로 반환하기위에 retrun new Article();
+
+전달값은 Article 클래스의 생성자 형식에 맞게 작성
+
+Aritcle.java 생성자를 확인해 보면 id, title, content를 매개변수로 받고 있다.
+
+ArticleForm 객체에 id 정보는 없으므로 첫 번째 전달값은 null 두번 째 전달값은 title 세 번째 전달값은 content를 입력합니다.
+
 
 
 
