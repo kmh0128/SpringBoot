@@ -191,8 +191,34 @@ Aritcle.java 생성자를 확인해 보면 id, title, content를 매개변수로
 
 ArticleForm 객체에 id 정보는 없으므로 첫 번째 전달값은 null 두번 째 전달값은 title 세 번째 전달값은 content를 입력합니다.
 
+entity/Article
+---
+
+        public Article(Long id, String title, String content) {
+                this.id = id;
+                this.title = title;
+                this.content = content;
+            }
+
+        
+dto/ArticleForm
+---
+
+        public Article toEntity() {
+        //중략
+                return new Article(null, title, content);
+            }
+        }
 
 
+ArticleController에 가보면 toEntity() 메서드의 오류 표시가 사라진 것을 확인할 수 있습니다.
+
+DTO를 엔티티로 변환하는 과정이었습니다.
+
+리파지토리로 엔티티를 DB에 저장하기
+===
+
+1 articleRepository.save() 메서드를 호출해
 
 참고자료
 ---
