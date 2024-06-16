@@ -230,6 +230,84 @@ articleRepository부분에 빨간색 오류 표시가 뜹니다.
 
 2 필드 선언부에 ArticleRepository 객체를 선언합니다.
 
+controller/ArticleController
+---
+
+        @Controller
+        public class ArticleController {
+
+            @Autowired//스프링부터가 미리 생성해 놓은 리파지터리 객체 주입(DI)
+            private ArticleRepository articleRepository;//articleRepository 객체선언
+
+            @GetMapping("/articles/new")
+            public String newArticlesForm() {
+                return "articles/new";
+            }
+
+            @PostMapping("/articles/create")//URL 요청접수
+            public String createArticle(ArticleForm form) {//폼 데이터를 DTO로 받기
+                System.out.println(form.toString());//DTO에 폼 데이터가 잘 담겼는지 확인
+                //DTO를 엔티티로 변환
+                Article article = form.toEntity();
+                //2. 리파지토리로 엔티티를 DB에 저장
+                Article saved = articleRepository.save(article);//artcle 엔티티를 저장해 saved 객체에 반환
+                return "";
+
+
+            }
+        }
+위의 코드를 작성시 save() 메서드가 빨간색으로 표시되고 인식되지 않았습니다.
+
+필드 선언부에 ArticleRepository도 마찬가지입니다.
+
+해당 리파지터리가 아직 생성되지 않았기 때문입니다.
+
+리파지토리 만들기
+===
+
+1-> com.example.firstproject에서 마우스 오른족 new -> package 선택하고
+
+끝에 repository로 추가해 짓습니다.
+
+2-> repository 패키지가 생성되면 class를 생성 이번에는 interface를 선택하고 이름을 ArticleRepository라고 입력
+
+3 -> 편집기가 열리면서 ArticleRepository가 repository 패키지 안에 생성된 것을 확인할 수 있습니다.
+
+리파지터리는 사용자가 직접 구현할 수도 있지만 JPA에서 제공하는 리파지터리 인터페이스를 활용해서 만들 수도 잇습니다.
+
+ArticleRepository 다음에 extends Crud를 입력하면 펼침 목록이 나타나는데 그중에서 CrudRepository<T, ID>를 선택합니다.
+
+이는 CrudRepository라는 인터페이스를 상속받는 명령입니다.
+
+![리포지토리 목록](https://github.com/kmh0128/SpringBoot/assets/100178951/31fc91a5-5051-4715-812f-d49d4233ab02)
+
+4 위와 같은 CrudRepository는 JPA에서 제공하는 이터페이스로 이를 상속해 엔티티를 관리(생성, 조회,수정,삭제)할 수 있습니다.
+
+CrudRepository에 홑화살괄호(<>)를 붙이고 그안에 다음과 같은 제네릭 요소를 받습니다
+
+Aritcle -> 관리 대상 엔티티의 클래스 타입입니다. 여기서는 Article 입니다.
+
+Long -> 관리 대상 엔티티의 대표값 타입입니다.
+
+Article.java 파일에 가 보면 id를 대푯값으로 지정했습니다.
+
+id의 타입은 Long 이므로 Long을 입력합니다.
+
+repository/ArticleRepository.java
+---
+
+![리퍼지토리](https://github.com/kmh0128/SpringBoot/assets/100178951/42b09f3d-d36c-44f0-ae60-cac8ebf46cdb)
+
+        //CrudRepository  패키지 자동 임포트
+        import org.springframework.data.repository.CrudRepository;
+
+위 코드까지 작성하면 ArticleRepository는 CrudRepository가 제공하는 기능을 별도 정의 없이 그대로 사용할 수 있습니다.
+
+DB에 데이터를 생성하고(Create),읽고(Read),수정하고(Update),삭제하는(Delete) 기본 동작을 추가 코드로 구현할 필요 없이 CrudRepository에서 상속받아서 사용할 수 있습니다.
+
+
+
+
 참고자료
 ---
 
