@@ -218,7 +218,17 @@ DTO를 엔티티로 변환하는 과정이었습니다.
 리파지토리로 엔티티를 DB에 저장하기
 ===
 
-1 articleRepository.save() 메서드를 호출해
+1 articleRepository.save() 메서드를 호출해 article 엔티티를 저장합니다.
+
+save()메서드는 저장된 엔티티를 반환합니다.
+
+이를 Article 타입의 saved라는 객체에 받아 옵니다.
+
+articleRepository부분에 빨간색 오류 표시가 뜹니다.
+
+이런경우 articleRepository 객체를 선언하지 않고 사용했기 때문입니다.
+
+2 필드 선언부에 ArticleRepository 객체를 선언합니다.
 
 참고자료
 ---
