@@ -355,6 +355,51 @@ controller/ArticleController.java
             private ArticleRepository articleRepository;//articleRepository 객체선언
             //중략
 
+데이터 저장 확인
+---
+
+article 엔티티가 DB에 테이블로 저장됐는지 확인해보겠습니다.
+
+1 -> DTO가 엔티티로 잘 변환되는지 article.toString() 메서드를 호출해서 확인
+
+2 -> article이 DB에 잘 저장되는지 saved.toString() 메서드를 호출해서 확인
+
+        public String createArticle(ArticleForm form) {//폼 데이터를 DTO로 받기
+                System.out.println(form.toString());//DTO에 폼 데이터가 잘 담겼는지 확인
+                //DTO를 엔티티로 변환
+                Article article = form.toEntity();
+                System.out.println(article.toString());//DTO가 엔티티로 잘 변환되는지 확인 출력
+                //2. 리파지토리로 엔티티를 DB에 저장
+                Article saved = articleRepository.save(article);//artcle 엔티티를 저장해 saved 객체에 반환
+                System.out.println(saved.toString());//article이 DB에 잘 저장되는지 확인 출력
+                return "";
+
+2-2 서버를 재시작하고 localhost:8080/articles/new 페이지에 접속합니다.
+
+제목과 내용을 입력합니다.
+
+![제목 내용](https://github.com/kmh0128/SpringBoot/assets/100178951/ada1912c-348d-4dd6-a695-bc6fdfffa4b3)
+
+인텔리제이 [Run] 탭에 가 보면 다음과 같은 결과를 확인 할 수 있습니다.
+
+1-1 폼 데이터를 받는 객체인 DTO title ='ㄹㅇㄷ', content='ㅇㅇㅇㅇㅇ' 저장
+
+DTO의 클래스 타입은 ArticleForm이었습니다.
+
+1-2 DTO가 엔티티로 변환돼 id=null, title ='ㄹㅇㄷ', content='ㅇㅇㅇㅇㅇ'이 저장됐습니다.
+
+엔티티의 클래스 타입은 Article이었습니다.
+
+1-3 마지막으로 리파지터리가 엔티티를 DB에 저장해 saved라는 엔티티 변수에 반환했습니다.
+
+saved 변수에 저장된 결과를 보면 title과 content는 똑같고 id는 자동으로 설정된 1을 출력합니다 saved 변수는 엔티티 타입이고, 엔티티 클래스 타입은 Article 입니다.
+
+![결과 확인](https://github.com/kmh0128/SpringBoot/assets/100178951/9b103f6f-2b5e-4004-8523-74e0c17fe620)
+
+
+
+
+
         
 참고자료
 ---
