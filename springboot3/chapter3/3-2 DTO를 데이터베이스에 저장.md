@@ -305,9 +305,57 @@ repository/ArticleRepository.java
 
 DB에 데이터를 생성하고(Create),읽고(Read),수정하고(Update),삭제하는(Delete) 기본 동작을 추가 코드로 구현할 필요 없이 CrudRepository에서 상속받아서 사용할 수 있습니다.
 
+controller/ArticleController.java
+---
+
+ArticleController에 가 보면 위쪽 import com.example.firstproject.repository.ArticleRepository;
+
+가 자동으로 임포트했습니다.
+
+필드 선언 문과 save() 메서드의 빨간색 오류 표시도 사라졌습니다.
+
+        import com.example.firstproject.repository.ArticleRepository;
+
+        @Controller
+        public class ArticleController {
+
+        //중략
+
+            @PostMapping("/articles/create")//URL 요청접수
+            public String createArticle(ArticleForm form) {//폼 데이터를 DTO로 받기
+                System.out.println(form.toString());//DTO에 폼 데이터가 잘 담겼는지 확인
+                //DTO를 엔티티로 변환
+                Article article = form.toEntity();
+                //2. 리파지토리로 엔티티를 DB에 저장
+                Article saved = articleRepository.save(article);//artcle 엔티티를 저장해 saved 객체에 반환
+                return "";
 
 
+            }
+        }
 
+객체 주입하기
+---
+
+        private ArticleRepository articleRepository;//articleRepository 객체선언
+        //중략
+        Article saved = articleRepository.save(article);//artcle 엔티티를 저장해 saved 객체에 반환
+
+자바랑은 다르게 구현체를 만들어주지 않아도 된다
+
+@Autowired 어노테이션을 붙이면 스프링부트가 생성해 놓은 객체를 가져다가 연결해줍니다.
+
+controller/ArticleController.java
+---
+
+        @Controller
+        public class ArticleController {
+
+            @Autowired//스프링부터가 미리 생성해 놓은 리파지터리 객체 주입(DI)
+            private ArticleRepository articleRepository;//articleRepository 객체선언
+            //중략
+
+        
 참고자료
 ---
 
