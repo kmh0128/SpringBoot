@@ -40,7 +40,18 @@ build.gradle 파일 클릭
 4-2-2 DTO 리팩토링
 ---
 
+리팩터링(refactoring)이란 코드의 기능에는 변함이 없이 코드의 구조 또는 성능을 개선하는 작업을 말합니다.
 
+dto, entity, repository 등도 작성한것을 간소화해보겠습니다.
+
+DTO
+---
+
+com.example.firstproject > dto > ArticleForm을 엽니다.
+
+코드를 보면 ArticleForm() 생성자와 toString() 메서드가 있습니다.
+
+ArticleForm() 생성자 코드를 간소화 해보겠습니다.
 
 
 
