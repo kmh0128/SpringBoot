@@ -404,4 +404,8 @@ saved 변수에 저장된 결과를 보면 title과 content는 똑같고 id는 �
 참고자료
 ---
 
+
+저자 홍팍님
+
+책 제목:스프링부트3 자바 백엔드 개발 입문
 http://wiki.hash.kr/index.php/%ED%85%8C%EC%9D%B4%EB%B8%94_(%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4)
