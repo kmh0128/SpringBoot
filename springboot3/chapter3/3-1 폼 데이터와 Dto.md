@@ -41,6 +41,10 @@ templates 디렉토리에 작성 -> 이러한 뷰 템플릿 페이지는 간단�
 참고자료
 ---
 
+저자 홍팍님
+
+책 제목:스프링부트3 자바 백엔드 개발 입문
+
 https://jjangadadcodingdiary.tistory.com/entry/Spring-Spring-Framework%EC%97%90%EC%84%9C%EC%9D%98-PostMapping%EA%B3%BC-GetMapping-REST-API%EC%9D%98-%ED%95%B5%EC%8B%AC-%EC%9A%94%EC%86%8C
 
 https://www.nextree.co.kr/p8428/
