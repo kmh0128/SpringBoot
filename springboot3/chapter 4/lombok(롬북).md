@@ -53,7 +53,17 @@ com.example.firstproject > dto > ArticleForm을 엽니다.
 
 ArticleForm() 생성자 코드를 간소화 해보겠습니다.
 
+1-> ArticleForm() 생성자 코드 전체를 지웁니다.
 
+2-> ArticleForm 클래스 위에 @AllArgsConstructor 어노테이션을 추가합니다.
+
+이렇게 하면 클래스 안쪽의 모든 필드, title과 content를 매개변수로 하는 생성자가 자동으로 만들어집니다.
+
+앞에서 만든 생성자 코드 네줄이 어노테이션 하나로 대체됩니다.
+
+@AllArgsConstructor -> 필드에 쓴 모든생성자만 만들어줌
+
+@NoArgsConstructor -> 기본 생성자를 만들어줌
 
 
 
