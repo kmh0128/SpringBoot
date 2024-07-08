@@ -65,6 +65,79 @@ ArticleForm() 생성자 코드를 간소화 해보겠습니다.
 
 @NoArgsConstructor -> 기본 생성자를 만들어줌
 
+dto/ArticleForm.java
+===
+
+    import lombok.AllArgsConstructor;
+
+    @AllArgsConstructor//새 어노테이션 추가
+    @ToString//toString() 메서드를 사용하는 것과 같은 효과가 납니다.
+    public class ArticleForm {
+        private String title; // 제목을 받을 필드
+        private String content; //내용을 받을 필드
+
+        //아래 생성자 전부 삭제
+        //public ArticleForm(String title, String content) {//생성자 추가 빈공간에 오른쪽 마우스 Generate -> Constructor 선택 ctrl 누른채로 전부 선택 ok
+            //this.title = title;
+            //this.content = content;
+
+2 toString() 메서드 간소환
+----
+
+2-1 toString() 메서드 코드 전체를 지웁니다.
+
+2-2 @ToString 어노테이션을 추가합니다.
+
+이렇게 하면 toString( 메서드를 사용하는 것과 같은 효과가 나타납니다.
+
+
+dto/ArticleForm.java
+===
+
+    import lombok.ToString;//ToString 패키지 자동 임포트
+
+    @AllArgsConstructor//새 어노테이션 추가
+    @ToString//toString() 메서드를 사용하는 것과 같은 효과가 납니다.
+    public class ArticleForm {
+        private String title; // 제목을 받을 필드
+        private String content; //내용을 받을 필드
+
+
+        //아래 메서드 전체 삭제
+        @Override
+        public String toString() {
+            return "ArticleForm{" +
+                    "title='" + title + '\'' +
+                    ", content='" + content + '\'' +
+                    '}';
+        } 
+
+    }
+
+
+3 동작확인 
+---
+
+이제 제대로 동작하는지 확인해 보겠습니다.
+
+서버를 실행후 localhost:8080/articles/new에 접속하고 제목과 내용을 입력후 [Submit] 버튼을 클릭하고 인테리제이 실행창의 [Run] 탭에 가보면 
+
+결과가 잘 출력되는 것을 확인해봅니다.
+
+![입력확인](https://github.com/kmh0128/SpringBoot/assets/100178951/7e8c5251-29cf-4d52-8098-8caaa5409b22)
+
+
+4 폼 데이터로 전송한 내용이 DB에도 잘 들어갔는지 확인해 보겠습니다.
+
+localhost:8080/h2-console 접속 -> JDBC URL은 서버를 켤 때마다 바뀌니 새로 입력해줘야합니다 [Run]탭으로 와서 ctrl + f 눌러서 jdbc를 검색
+
+검색결과 후 JDBC URL에 붙여 넣고 [Connect] 버튼을 클릭
+
+![db확인](https://github.com/kmh0128/SpringBoot/assets/100178951/30f9750f-747b-4142-9804-4f645ce0dfdc)
+
+그리고 좌측 ARTICLE 테이블 클릭후 RUN 탭 눌러 실행해 보면 데이터가 아래 잘 저장된 것을 확인할 수 있습니다.
+
+
 
 
 
