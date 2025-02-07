@@ -1,5 +1,5 @@
 헬로월드(Hello World)
-====
+===
 
 ![스타트 애플리케이션](https://github.com/kmh0128/SpringBoot/assets/100178951/3fa50455-b544-44b5-98e4-5171e3d59284)
 
@@ -19,7 +19,7 @@ Html 클릭 파일명을 hello.html작성
 위와 같이 출력됩니다.
 
 서버가 정상작동되는지 확인
----
+--
 
 ![스타트 애플리케이션](https://github.com/kmh0128/SpringBoot/assets/100178951/b23983b5-047c-4d73-ab20-a10f4610f2a3)
 
